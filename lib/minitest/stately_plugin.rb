@@ -9,8 +9,8 @@ module Minitest
       @watcher
     end
 
-    def self.watch(&blk)
-      @watcher.watch(&blk)
+    def self.watch(name, &blk)
+      @watcher.watch(name, &blk)
     end
   end
 

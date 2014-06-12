@@ -9,13 +9,18 @@ module Minitest
       end
 
       def test_watcher_no_change
-        @watcher.watch { true }
+        @watcher.watch("the truth") do
+          true
+        end
+
         @watcher.record(self)
         assert_empty @watcher.report
       end
 
       def test_watcher_change
-        @watcher.watch { @boo }
+        @watcher.watch("@boo") do
+          @boo
+        end
 
         @boo = 1
         @watcher.record(self)
@@ -27,7 +32,9 @@ module Minitest
       end
 
       def test_multiple_changes
-        @watcher.watch { @boo }
+        @watcher.watch("@boo") do
+          @boo
+        end
 
         @boo = 1
         @watcher.record(self)
@@ -44,8 +51,7 @@ module Minitest
 
       def assert_changes(name, old, new)
         assert_includes @watcher.report, name
-        assert_includes @watcher.report, "was '#{old}'"
-        assert_includes @watcher.report, "changed to '#{new}'"
+        assert_includes @watcher.report, "'#{old}' to '#{new}'"
       end
     end
   end

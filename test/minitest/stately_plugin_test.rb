@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/stately_plugin'
 
 $boo = 0
-Minitest::Stately.watch do
+Minitest::Stately.watch("$boo") do
   $boo
 end
 

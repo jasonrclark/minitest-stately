@@ -2,20 +2,20 @@ module Minitest
   class Stately
     class Watcher
       def initialize
-        @watch   = []
+        @watch   = {}
         @results = {}
         @report  = []
       end
 
-      def watch(&blk)
-        @watch << blk
+      def watch(name, &blk)
+        @watch[name] = blk
       end
 
       def record(result)
-        @watch.each do |blk|
+        @watch.each do |name, blk|
           value = blk.call
           if @results.include?(blk) && @results[blk] != value
-            @report << "#{result.class.name}\##{result.name}: was '#{@results[blk]}', changed to '#{value}'"
+            @report << "#{result.class.name}\##{result.name}: #{name} changed from '#{@results[blk]}' to '#{value}'"
           end
           @results[blk] = value
         end
