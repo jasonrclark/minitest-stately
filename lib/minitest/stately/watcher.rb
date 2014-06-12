@@ -8,7 +8,8 @@ module Minitest
       end
 
       def watch(name, &blk)
-        @watch[name] = blk
+        @watch[name]  = blk
+        @results[blk] = blk.call
       end
 
       def record(result)
