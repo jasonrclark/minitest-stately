@@ -15,11 +15,19 @@ module Minitest
       def record(result)
         @watch.each do |name, blk|
           value = blk.call
-          if @results.include?(blk) && @results[blk] != value
-            @report << "#{result.class.name}\##{result.name}: #{name} changed from '#{@results[blk]}' to '#{value}'"
+          if value_changed?(blk, value)
+            @report << message(result, name, blk, value)
           end
           @results[blk] = value
         end
+      end
+
+      def value_changed?(blk, value)
+        @results[blk] != value
+      end
+
+      def message(result, name, blk, value)
+        "#{result.class.name}\##{result.name}: #{name} changed from '#{@results[blk]}' to '#{value}'"
       end
 
       HEADER = <<-EOS
