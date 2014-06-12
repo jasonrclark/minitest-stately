@@ -46,6 +46,16 @@ module Minitest
         assert_changes(name, 2, 3)
       end
 
+      def test_run
+        @boo = 1
+        @watcher.run do
+          @boo = nil
+        end
+
+        @watcher.record(self)
+        assert_nil @boo
+      end
+
       def assert_changes(name, old, new)
         assert_includes @watcher.report, name
         assert_includes @watcher.report, "'#{old}' to '#{new}'"

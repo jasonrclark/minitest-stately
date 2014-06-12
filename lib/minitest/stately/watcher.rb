@@ -3,6 +3,8 @@ module Minitest
     class Watcher
       def initialize
         @watch   = {}
+        @run     = []
+
         @results = {}
         @report  = []
       end
@@ -12,13 +14,28 @@ module Minitest
         @results[blk] = blk.call
       end
 
+      def run(&blk)
+        @run << blk
+      end
+
       def record(result)
+        record_changes(result)
+        run_blocks()
+      end
+
+      def record_changes(result)
         @watch.each do |name, blk|
           value = blk.call
           if value_changed?(blk, value)
             @report << message(result, name, blk, value)
           end
           @results[blk] = value
+        end
+      end
+
+      def run_blocks()
+        @run.each do |blk|
+          blk.call
         end
       end
 

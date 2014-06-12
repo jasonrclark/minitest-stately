@@ -12,6 +12,10 @@ module Minitest
     def self.watch(name, &blk)
       @watcher.watch(name, &blk)
     end
+
+    def self.run(&blk)
+      @watcher.run(&blk)
+    end
   end
 
   def self.plugin_stately_init(options)

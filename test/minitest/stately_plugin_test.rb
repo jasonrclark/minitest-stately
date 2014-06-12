@@ -6,16 +6,20 @@ Minitest::Stately.watch("$boo") do
   $boo
 end
 
+Minitest::Stately.run do
+  $clear_me = nil
+end
+
 class Minitest::StatelyPluginTest < Minitest::Test
   def test_defined
+    assert_nil $clear_me
     $boo += 1
-    assert defined?(Minitest::Stately)
+    $clear_me = true
   end
 
   def test_again
+    assert_nil $clear_me
     $boo += 1
-  end
-
-  def test_no_change
+    $clear_me = true
   end
 end
