@@ -1,24 +1,54 @@
 # Minitest::Stately
 
-TODO: Write a gem description
+Find leaking state between tests
+
+## Requirements
+Tests are run against MRI 1.9.3 through 2.1.2, JRuby 1.7 (latest) and head, and
+Rubinius 2.x (latest).
+
+Ruby 1.8.7 and REE are not supported. Sorry retro-Ruby fans!
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'minitest-stately'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install minitest-stately
 
 ## Usage
 
-TODO: Write usage instructions here
+### Minitest::Stately.watch
+Early in your test run (typically from `test_helper.rb`), call to set up the
+conditions to watch for changes in. The condition block is run immediately to
+set a default value, and then run and compared after each test executes to look
+for changes.
+
+```
+# Watch for freshly started threads
+Minitest::Stately.watch("condition name") do
+  Thread.list.count
+end
+```
+
+If there are changes during the test run for a condition, you'll see output
+like the following:
+
+```
+******************************
+Minitest::Stately Changes!!!
+******************************
+Minitest::StatelyPluginTest#test_again: $boo changed from '0' to '1'
+Minitest::StatelyPluginTest#test_defined: $boo changed from '1' to '2'
+```
+
+
+### Minitest::Stately.run
+Minitest::Stately can also register `run` blocks to be executed after each
+test. This can be useful for clearing out leaked state between all tests in a
+suite.
+
+```
+Minitest::Stately.run do
+  $silly_global_state = nil
+end
+```
 
 ## Contributing
 
