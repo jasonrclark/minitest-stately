@@ -1,6 +1,7 @@
 # Minitest::Stately
 [![Gem Version](https://badge.fury.io/rb/minitest-stately.png)](http://badge.fury.io/rb/minitest-stately)
 [![Build Status](https://api.travis-ci.org/jasonrclark/minitest-stately.png)](https://travis-ci.org/jasonrclark/minitest-stately)
+[![Code Climate](https://codeclimate.com/github/jasonrclark/minitest-stately.png)](https://codeclimate.com/github/jasonrclark/hometown)
 
 Find leaking state between tests
 
