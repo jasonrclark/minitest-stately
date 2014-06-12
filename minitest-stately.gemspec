@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jason R. Clark"]
   spec.email         = ["jason@jasonrclark.net"]
   spec.summary       = %q{Find leaking state between tests}
+  spec.description   = %q{Find and clear leaking state between individual test executions}
   spec.homepage      = "http://github.com/jasonrclark/minitest-stately"
   spec.license       = "MIT"
 
@@ -17,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "minitest", ">= 5.0.0"
+  spec.add_runtime_dependency 'minitest', '~> 5.0', '>= 5.0.0'
 
   spec.add_development_dependency "bundler", "~> 1.6"
-  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rake",    "~> 10.2"
 end
