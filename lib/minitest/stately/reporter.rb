@@ -1,5 +1,5 @@
 module Minitest
-  class Stately
+  module Stately
     class Reporter < Minitest::Reporter
       def initialize(options={})
         super(options.delete(:io) || $stdout, options)

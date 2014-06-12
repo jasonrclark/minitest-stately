@@ -2,7 +2,7 @@ require 'minitest/stately/reporter'
 require 'minitest/stately/watcher'
 
 module Minitest
-  class Stately
+  module Stately
     @watcher = Watcher.new
 
     def self.watcher

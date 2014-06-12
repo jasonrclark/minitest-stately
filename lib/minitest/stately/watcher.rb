@@ -1,5 +1,5 @@
 module Minitest
-  class Stately
+  module Stately
     class Watcher
       def initialize
         @watch   = {}

@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'minitest/stately/watcher'
 
 module Minitest
-  class Stately
+  module Stately
     class WatcherTest < Minitest::Test
       def setup
         @watcher = Watcher.new
