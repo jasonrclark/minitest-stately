@@ -21,14 +21,15 @@ Ruby 1.8.7 and REE are not supported. Sorry retro-Ruby fans!
 ## Usage
 
 ### Minitest::Stately.watch
-Early in your test run (typically from `test_helper.rb`), call to set up the
-conditions to watch for changes in. The condition block is run immediately to
-set a default value, and then run and compared after each test executes to look
-for changes.
+Early in your test run (typically from `test_helper.rb`), set up the condition
+blocks you want to watch for changes. The condition blocks run immediately to
+set default values, and then after each test the blocks are executed again and
+compared for changes. The name provided to watch is used strictly for output
+in the final change report.
 
 ```
 # Watch for freshly started threads
-Minitest::Stately.watch("condition name") do
+Minitest::Stately.watch("thread count") do
   Thread.list.count
 end
 ```
@@ -40,8 +41,8 @@ like the following:
 ******************************
 Minitest::Stately Changes!!!
 ******************************
-Minitest::StatelyPluginTest#test_again: $boo changed from '0' to '1'
-Minitest::StatelyPluginTest#test_defined: $boo changed from '1' to '2'
+Minitest::StatelyPluginTest#test_again: thread count changed from '1' to '2'
+Minitest::StatelyPluginTest#test_defined: thread count changed from '2' to '3'
 ```
 
 
@@ -58,7 +59,7 @@ end
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/minitest-stately/fork )
+1. Fork it ( https://github.com/jasonrclark/minitest-stately/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
