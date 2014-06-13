@@ -44,7 +44,7 @@ module Minitest
       end
 
       def message(result, name, blk, value)
-        "#{result.class.name}\##{result.name}: #{name} changed from '#{@results[blk]}' to '#{value}'"
+        "#{result.class.name}\##{result.name}: #{name} changed from #{@results[blk].inspect} to #{value.inspect}"
       end
 
       HEADER = <<-EOS

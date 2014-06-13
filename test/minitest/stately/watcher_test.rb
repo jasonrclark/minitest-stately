@@ -58,7 +58,7 @@ module Minitest
 
       def assert_changes(name, old, new)
         assert_includes @watcher.report, name
-        assert_includes @watcher.report, "'#{old}' to '#{new}'"
+        assert_includes @watcher.report, "#{old.inspect} to #{new.inspect}"
       end
     end
   end
