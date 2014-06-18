@@ -10,6 +10,11 @@ Minitest::Stately.run do
   $clear_me = nil
 end
 
+Minitest::Stately.fail_if("too false to fail") do
+  # This condition should never fail
+  false
+end
+
 class Minitest::StatelyPluginTest < Minitest::Test
   def test_defined
     assert_nil $clear_me

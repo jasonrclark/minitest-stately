@@ -45,7 +45,6 @@ Minitest::StatelyPluginTest#test_again: thread count changed from '1' to '2'
 Minitest::StatelyPluginTest#test_defined: thread count changed from '2' to '3'
 ```
 
-
 ### Minitest::Stately.run
 Minitest::Stately can also register `run` blocks to be executed after each
 test. This can be useful for clearing out leaked state between all tests in a
@@ -55,6 +54,25 @@ suite.
 Minitest::Stately.run do
   $silly_global_state = nil
 end
+```
+
+### Minitest::Stately.fail_if
+Minitest::Stately also allows you to write conditions which will globally fail
+any test if they become true.
+
+```
+# Fail if we get too many threads
+Minitest::Stately.fail_if("so many threads") do
+  Thread.list.count > 10
+end
+```
+
+If this condition was violated, you'd see a test failure like:
+
+```
+  1) Failure:
+Minitest::StatelyPluginTest#test_again [.../watcher.rb:54]:
+so many threads
 ```
 
 ## Contributing

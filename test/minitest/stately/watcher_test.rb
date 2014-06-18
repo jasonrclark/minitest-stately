@@ -72,6 +72,29 @@ module Minitest
         assert_nil @boo
       end
 
+      def test_fail_if
+        @watcher.fail_if("true") do
+          true
+        end
+
+        result = Minitest::Mock.new
+        result.expect(:flunk, nil, [String])
+        @watcher.record(result)
+
+        result.verify
+      end
+
+      def test_doesnt_fail
+        @watcher.fail_if("won't fail") do
+          false
+        end
+
+        result = Minitest::Mock.new
+        @watcher.record(result)
+
+        result.verify
+      end
+
       def assert_changes(name, old, new)
         assert_includes @watcher.report, name
         assert_includes @watcher.report, "#{old.inspect} to #{new.inspect}"
