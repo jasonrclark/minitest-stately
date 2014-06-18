@@ -10,8 +10,8 @@ module Minitest
       end
 
       def watch(name, &blk)
-        @watch[name]  = blk
-        @results[blk] = blk.call
+        @watch[name]   = blk
+        @results[name] = blk.call
       end
 
       def run(&blk)
@@ -26,10 +26,10 @@ module Minitest
       def record_changes(result)
         @watch.each do |name, blk|
           value = blk.call
-          if value_changed?(blk, value)
-            @report << message(result, name, blk, value)
+          if value_changed?(name, value)
+            @report << message(result, name, value)
           end
-          @results[blk] = value
+          @results[name] = value
         end
       end
 
@@ -39,12 +39,12 @@ module Minitest
         end
       end
 
-      def value_changed?(blk, value)
-        @results[blk] != value
+      def value_changed?(name, value)
+        @results[name] != value
       end
 
-      def message(result, name, blk, value)
-        "#{result.class.name}\##{result.name}: #{name} changed from #{@results[blk].inspect} to #{value.inspect}"
+      def message(result, name, value)
+        "#{result.class.name}\##{result.name}: #{name} changed from #{@results[name].inspect} to #{value.inspect}"
       end
 
       HEADER = <<-EOS

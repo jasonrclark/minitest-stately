@@ -46,6 +46,22 @@ module Minitest
         assert_changes(name, 2, 3)
       end
 
+      def test_multiple_watches_last_one_wins
+        first  = 0
+        second = 0
+
+        @watcher.watch("hey") { first  += 1 }
+        @watcher.watch("hey") { second += 1 }
+
+        # Reset before we record so initial defaulting is wiped
+        first  = 0
+        second = 0
+        @watcher.record(self)
+
+        assert_equal(0, first)
+        assert_equal(1, second)
+      end
+
       def test_run
         @boo = 1
         @watcher.run do
