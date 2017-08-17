@@ -9,10 +9,7 @@ Find leaking state between tests
 ## Requirements
 Minitest 5.x is required for Minitest::Stately to work properly.
 
-Tests are run against MRI 1.9.3 through 2.1.2, JRuby 1.7 (latest) and head, and
-Rubinius 2.x (latest).
-
-Ruby 1.8.7 and REE are not supported. Sorry retro-Ruby fans!
+Tests are run against MRI 2.1 through 2.4 and JRuby 9.1. Sorry retro-Ruby fans!
 
 ## Installation
 
